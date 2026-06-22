@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - 图书管理系统{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 40px 0;">
+    <h1>欢迎来到图书管理系统</h1>
+    <p style="font-size: 18px; margin: 20px 0;">一个现代化的图书管理解决方案</p>
+    
+    {% if current_user.is_authenticated %}
+        <p>欢迎回来，{{ current_user.username }}！</p>
+        <div style="margin-top: 30px;">
+            <a href="{{ url_for('book_bp.list_books') }}" style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">浏览图书</a>
+            <a href="#" style="display: inline-block; padding: 10px 20px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 5px;">我的借阅</a>
+        </div>
+    {% else %}
+        <div style="margin-top: 30px;">
+            <a href="{{ url_for('main.login') }}" style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">登录</a>
+            <a href="{{ url_for('main.register') }}" style="display: inline-block; padding: 10px 20px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 5px;">注册</a>
+        </div>
+    {% endif %}
+</div>
+
+<div style="margin-top: 60px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>📖 丰富的图书资源</h3>
+        <p>拥有超过1000本各类图书，涵盖多个领域和主题</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>🔍 高效的搜索功能</h3>
+        <p>快速搜索和定位您需要的图书，支持多种搜索方式</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>📱 便捷的在线管理</h3>
+        <p>随时随地管理您的借阅记录和续借申请</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}登录 - 图书管理系统{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 30px;">用户登录</h2>
+    
+    <form id="loginForm" method="POST" onsubmit="handleLogin(event)">
+        <div style="margin-bottom: 20px;">
+            <label for="username" style="display: block; margin-bottom: 5px; font-weight: bold;">用户名</label>
+            <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="password" style="display: block; margin-bottom: 5px; font-weight: bold;">密码</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember">记住我</label>
+        </div>
+        
+        <button type="submit" style="width: 100%; padding: 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">登录</button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <p>还没有账户？<a href="{{ url_for('main.register') }}">立即注册</a></p>
+    </div>
+</div>
+
+<script>
+function handleLogin(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const remember = document.getElementById('remember').checked;
+    
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username, password, remember})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.code === 200) {
+            window.location.href = '/dashboard';
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script>
+{% endblock %}

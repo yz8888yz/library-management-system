@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}仪表板 - 图书管理系统{% endblock %}
+
+{% block content %}
+<h1>欢迎，{{ user.username }}</h1>
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 30px 0;">
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>我的借阅数</h3>
+        <p style="font-size: 32px; color: #3498db; font-weight: bold;">{{ user.borrow_count }}</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>逾期图书</h3>
+        <p style="font-size: 32px; color: #e74c3c; font-weight: bold;">{{ user.overdue_count }}</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>账户状态</h3>
+        <p style="font-size: 18px; padding: 5px 10px; background-color: #27ae60; color: white; border-radius: 4px; display: inline-block;">{{ user.status }}</p>
+    </div>
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3>用户等级</h3>
+        <p style="font-size: 18px; padding: 5px 10px; background-color: #3498db; color: white; border-radius: 4px; display: inline-block;">{{ user.role }}</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px;">
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2>快速操作</h2>
+        <ul style="list-style: none; margin-top: 20px;">
+            <li style="margin: 10px 0;"><a href="#" style="color: #3498db; text-decoration: none;">➕ 浏览图书</a></li>
+            <li style="margin: 10px 0;"><a href="#" style="color: #3498db; text-decoration: none;">📖 我的借阅</a></li>
+            <li style="margin: 10px 0;"><a href="#" style="color: #3498db; text-decoration: none;">👤 个人信息</a></li>
+            <li style="margin: 10px 0;"><a href="#" style="color: #3498db; text-decoration: none;">🔐 修改密码</a></li>
+        </ul>
+    </div>
+    
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2>系统信息</h2>
+        <p style="margin: 10px 0;"><strong>注册时间：</strong> {{ user.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p style="margin: 10px 0;"><strong>上次登录：</strong> {% if user.last_login %}{{ user.last_login.strftime('%Y-%m-%d %H:%M') }}{% else %}首次登录{% endif %}</p>
+        <p style="margin: 10px 0;"><strong>邮箱：</strong> {{ user.email }}</p>
+        <p style="margin: 10px 0;"><strong>电话：</strong> {% if user.phone %}{{ user.phone }}{% else %}-{% endif %}</p>
+    </div>
+</div>
+{% endblock %}
